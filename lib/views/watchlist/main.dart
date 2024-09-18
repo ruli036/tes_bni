@@ -35,7 +35,6 @@ class WatchListPage extends StatelessWidget {
           }
         })
       ),
-
     );
   }
 }
