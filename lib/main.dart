@@ -8,13 +8,12 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Watchlist',
       darkTheme: ThemeData(
-        brightness: Brightness.dark, // Tema Gelap
+        brightness: Brightness.dark,
         primarySwatch: Colors.blue,
       ),
       initialRoute: 'watchlist',
