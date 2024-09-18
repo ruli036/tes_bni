@@ -18,9 +18,12 @@ class GrafikView extends StatelessWidget {
         );
       }else{
         var lastprice = controller.grafik.isNotEmpty?controller.grafik.first['y']:0.0;
-        var newprice = controller.grafik.isNotEmpty?controller.grafik.last['y']:0.0;
-        var maxY = lastprice +  20.0;
-        var minY = controller.prices.value -  20.0;
+        var grafikData = controller.grafik.map((data) => double.parse(data['y'].toString())).toList();
+        var maxDataY = grafikData.isNotEmpty ? grafikData.reduce((a, b) => a > b ? a : b) : 0.0;
+        var minDataY = grafikData.isNotEmpty ? grafikData.reduce((a, b) => a < b ? a : b) : 0.0;
+        var margin = (maxDataY - minDataY) * 0.2;
+        var maxY = maxDataY + margin;
+        var minY = minDataY - margin;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -51,6 +54,8 @@ class GrafikView extends StatelessWidget {
                    bottomTitles: AxisTitles(
                      sideTitles: SideTitles(
                        showTitles: true,
+                       maxIncluded: false,
+                       minIncluded: false,
                        reservedSize: 40,
                        getTitlesWidget: (value, meta) {
                          String time = value.toString().split('.')[0].toString();
@@ -70,6 +75,8 @@ class GrafikView extends StatelessWidget {
                      sideTitles: SideTitles(
                        showTitles: true,
                        reservedSize: 40,
+                       maxIncluded: false,
+                       minIncluded: false,
                        getTitlesWidget: (value, meta) {
                          int integerValue = value.toInt();
                          var formattedTime = formateMoney(integerValue.toString(), 'en_US');
